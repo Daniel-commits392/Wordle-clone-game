@@ -2,8 +2,6 @@
 def check_word_length(word):
     return len(word)==5
         
-
-
 #function to pick a word
 def pick_largest_word(word_list):
     if not word_list:

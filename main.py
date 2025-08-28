@@ -23,6 +23,34 @@ def main():
     largest=pick_largest_word(words)
     print("Largest word:",largest)
 
+#looping part
+    secret_word=largest
+    word_length=len(secret_word)
+    Attempts=6
+
+    for attempt in range(1,Attempts+1):
+       print(f'Attempt {attempt} out of {Attempts} attempts')
+       players_guess=input('Enter your guess : ')
+       lower_guess=players_guess.lower()
+
+       if len(lower_guess)!=word_length:
+          print(f'Error! Guess has to be {word_length} letters long')
+          continue #this skips the current round ofthe game and asks for a new one
+       if lower_guess==secret_word:
+          print('👏Congrats🎉.YOU WIN!!')
+          break
+       
+
+       Feedback=[]
+       for i in range(word_length):
+          if lower_guess[i]==secret_word[i]:
+             Feedback.append('🟩') 
+          elif lower_guess[i] in secret_word:
+             Feedback.append('🟨')
+          else:
+             Feedback.append('⬜')
+       print(''.join(Feedback))
+             
     session.close()
 
 if __name__=="__main__":
