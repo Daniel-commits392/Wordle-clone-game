@@ -11,7 +11,7 @@ def evaluate_guess(guess: str, target: str) -> str:
     result = ["❌"] * len(guess)  # Default all to ❌
     target_count = {}  # Count letters in target not yet matched
     
-    # Step 1: Mark correct positions (✅)
+    # Step 2: Mark correct positions (✅)
     for i in range(len(guess)):
         if guess[i] == target[i]:
             result[i] = "✅"
