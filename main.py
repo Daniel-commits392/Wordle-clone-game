@@ -19,11 +19,11 @@ def main():
 
 
     words=[w.text for w in session.query(Word).all()]
-    print("Words in DB:",words)
+    # print("Words in DB:",words)
 
 
     largest=pick_largest_word(words)
-    print("Largest word:",largest)
+    # print("Largest word:",largest)
 
 #looping part
     secret_word=largest
