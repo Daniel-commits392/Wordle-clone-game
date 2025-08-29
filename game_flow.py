@@ -5,9 +5,9 @@ Handles the game logic for Wordle:
 - Scoring each guess against the target word
 """
 
-WORD_LENGTH = 5  # Length of the word to guess
+ # Length of the word to guess
 
-def validate_guess(guess: str) -> bool:
+def validate_guess(guess: str,word_length:int) -> bool:
     """
     Check if the guess is valid:
     - Must be a string
@@ -17,7 +17,7 @@ def validate_guess(guess: str) -> bool:
     if not isinstance(guess, str):
         return False
     guess = guess.strip()
-    return len(guess) == WORD_LENGTH and guess.isalpha()
+    return len(guess) == word_length and guess.isalpha()
 
 def score_guess(guess: str, target: str) -> list:
     """
