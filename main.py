@@ -1,54 +1,44 @@
+from game_flow import validate_guess, score_guess, WORD_LENGTH
 
-from database import SessionLocal,engine,Base
-from model import Word
-from utils import pick_largest_word,check_word_length
-from game_flow import validate_guess,score_guess
-
-
-Base.metadata.create_all(bind=engine)
+def print_rules():
+    print("\nWelcome to Wordle!")
+    print("Rules:")
+    print(f"- You have 6 attempts to guess the {WORD_LENGTH}-letter word.")
+    print("- Correct letter in correct position: GREEN")
+    print("- Correct letter in wrong position: YELLOW")
+    print("- Letter not in word: GRAY\n")
 
 def main():
-    session=SessionLocal()
+    target_word = "apple"  # The word to guess
+    attempts = 6
+    previous_guesses = []  # Stores guesses and their feedback
 
-    word_list=["apple","grape","mango","pearl","zebra","lemon"]
+    print_rules()
 
-    for w in word_list:
-        if check_word_length(w) and not session.query(Word).filter_by(text=w).first():
-            session.add(Word(text=w))
-    session.commit()
+    for attempt in range(attempts):
+        guess = input(f"Enter your {WORD_LENGTH}-letter guess: ")
 
-
-    words=[w.text for w in session.query(Word).all()]
-    print("Words in DB:",words)
-
-
-    largest=pick_largest_word(words)
-    print("Largest word:",largest)
-
-#looping part
-    secret_word=largest
-    word_length=len(secret_word)
-    Attempts=6
-
-    for attempt in range(1,Attempts+1):
-       print(f'Attempt {attempt} out of {Attempts} attempts')
-       players_guess=input('Enter your guess : ')
-       lower_guess=players_guess.lower()
-
-       if not validate_guess(lower_guess,word_length):
-            print(f'Invalid guess. Please enter a {word_length}-letter alphabetic word.')
+        # Validate guess
+        if not validate_guess(guess, WORD_LENGTH):
+            print("Invalid guess! Please enter a valid word.")
             continue
-         
-       if lower_guess==secret_word:
-          print('👏Congrats🎉.YOU WIN!!')
-          break
-       
 
-       Feedback=score_guess(lower_guess,secret_word)
-       print(''.join(Feedback))
-             
-    session.close()
+        # Score the guess and store result
+        feedback = score_guess(guess, target_word)
+        previous_guesses.append((guess, feedback))
 
-if __name__=="__main__":
+        # Show feedback and previous guesses
+        print(f"Feedback: {feedback}")
+        print("Previous guesses:")
+        for g, f in previous_guesses:
+            print(f"{g} -> {f}")
+
+        # Win condition
+        if guess.lower() == target_word:
+            print("\nCongratulations! You guessed the word!")
+            break
+    else:
+        print(f"\nGame Over! The correct word was '{target_word}'.")
+
+if __name__ == "__main__":
     main()
-
