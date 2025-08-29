@@ -28,10 +28,10 @@ def main():
 #looping part
     secret_word=largest
     word_length=len(secret_word)
-    Attempts=6
+    attempts=6
 
-    for attempt in range(1,Attempts+1):
-       print(f'Attempt {attempt} out of {Attempts} attempts')
+    for attempt in range(1,attempts+1):
+       print(f'Attempt {attempt} out of {attempts} attempts')
        players_guess=input('Enter your guess : ')
        lower_guess=players_guess.lower()
 
