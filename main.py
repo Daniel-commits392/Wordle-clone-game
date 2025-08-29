@@ -50,7 +50,6 @@ def main():
           print(f'Out of attempts! The word was {secret_word}')
 
     
-             
     session.close()
 
 if __name__=="__main__":
