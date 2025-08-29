@@ -25,3 +25,28 @@ def evaluate_guess(guess: str, target: str) -> str:
             target_count[guess[i]] -= 1  # use up one occurrence
     
     return "".join(result)
+
+def evaluate_words_from_file(file_path: str, target: str):
+    """
+    Reads words from a file and evaluates each guess against the target word.
+    """
+    try:
+        with open(file_path, 'r') as file:
+            words = file.readlines()
+        
+        # Clean up each word (strip newline, handle case)
+        words = [word.strip().lower() for word in words]
+        
+        for guess in words:
+            result = evaluate_guess(guess, target)
+            print(f"Guess: {guess.capitalize()} -> {result}")
+    
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+# Example usage
+if __name__ == "__main__":
+    target_word = "apple"
+    evaluate_words_from_file('words.txt', target_word)
